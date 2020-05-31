@@ -7,6 +7,7 @@ import okhttp3.RequestBody;
 import site.marqstree.mung.net.convert.RxFuncJson2Bean;
 import site.marqstree.mung.net.convert.RxFuncJson2Boolean;
 import site.marqstree.mung.net.convert.RxFuncJson2List;
+import site.marqstree.mung.net.convert.RxFuncJson2RawBean;
 import site.marqstree.mung.net.method.HttpMethod;
 import java.io.File;
 import java.util.List;
@@ -96,5 +97,10 @@ public class RxRequestBuilder<T> {
     public Observable<List<T>> json2List(Class<T> beanClass){
         return rxRequest.getJsonObservable()
                 .flatMap(new RxFuncJson2List<T>(beanClass));
+    }
+
+    public Observable<T> json2RawBean(Class<T> beanClass){
+        return rxRequest.getJsonObservable()
+                .flatMap(new RxFuncJson2RawBean<T>(beanClass));
     }
 }

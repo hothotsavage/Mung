@@ -7,6 +7,7 @@ import site.marqstree.mung.net.observer.RxObserver;
 import site.marqstree.mung.net.request.RxRequest;
 import site.marqstree.mung.net.request.RxRequestBuilder;
 import site.marqstree.mung.test.dataobject.SubmitPoint;
+import site.marqstree.mung.test.dataobject.TokenBean;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class TestNet {
 
     public static void main(String[] args) {
 
-        RxRequestBuilder.config("http://localhost:5050");
+        RxRequestBuilder.config("https://api.weixin.qq.com");
 
         //RxRequestBuilder.build()
         //        .setUrl("/api/submitpoint/querynear")
@@ -37,15 +38,35 @@ public class TestNet {
         //        });
 
 
+        //RxRequestBuilder.build()
+        //        .setUrl("http://localhost:5050/api/submitpoint/getbyid")
+        //        .setParam("id", 83)
+        //        .get()
+        //        .json2Bean(SubmitPoint.class)
+        //        .subscribe(new RxObserver<SubmitPoint>() {
+        //            @Override
+        //            public void onNext(SubmitPoint submitPoints) {
+        //                System.out.println(submitPoints.toString());
+        //            }
+        //
+        //            @Override
+        //            public void onError(Throwable e) {
+        //                System.out.println(e.getMessage());
+        //            }
+        //
+        //        });
+
         RxRequestBuilder.build()
-                .setUrl("http://localhost:5050/api/submitpoint/getbyid")
-                .setParam("id", 83)
+                .setUrl("/cgi-bin/token")
+                .setParam("grant_type", "client_credential")
+                .setParam("appid", "wx94131d07f4097e73")
+                .setParam("secret", "36148a8526b6829508504d1bf4b0f425")
                 .get()
-                .json2Bean(SubmitPoint.class)
-                .subscribe(new RxObserver<SubmitPoint>() {
+                .json2RawBean(TokenBean.class)
+                .subscribe(new RxObserver<TokenBean>() {
                     @Override
-                    public void onNext(SubmitPoint submitPoints) {
-                        System.out.println(submitPoints.toString());
+                    public void onNext(TokenBean tokenBean) {
+                        System.out.println(tokenBean.toString());
                     }
 
                     @Override

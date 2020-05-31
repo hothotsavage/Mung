@@ -26,10 +26,9 @@ public class RxRequest {
     //无参get方式RxService实例
     //返回json字符串
     private RxServiceNoParam rxServiceNoParam = RetrofitBuilder.getInstance()
-                .retrofitClient.create(RxServiceNoParam.class);
+            .retrofitClient.create(RxServiceNoParam.class);
 
-    //获取Retrofit的参数数组方式传参RxService实例
-    //返回json字符串
+
     private RxServiceByParam rxServiceByParam = RetrofitBuilder.getInstance()
             .retrofitClient.create(RxServiceByParam.class);
 
