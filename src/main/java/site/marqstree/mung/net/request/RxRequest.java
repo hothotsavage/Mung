@@ -10,6 +10,7 @@ import site.marqstree.mung.net.method.HttpMethod;
 import site.marqstree.mung.net.retrofit.RetrofitBuilder;
 import site.marqstree.mung.rxservice.*;
 import java.io.File;
+import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
 //retrofit发起http请求的客户端
@@ -19,9 +20,9 @@ public class RxRequest {
 
     private String url;
     private WeakHashMap<String,Object> params= new WeakHashMap<String,Object>();
-    private RequestBody body;
-    private File file;
-    private Observable<String> jsonObservable;
+    private RequestBody body=null;
+    private File file=null;
+    private Observable<String> jsonObservable=null;
 
     //无参get方式RxService实例
     //返回json字符串
@@ -59,7 +60,15 @@ public class RxRequest {
                     return rxServiceByParam.get(url,params);
                 }
             case POST:
-                if(params.isEmpty()){
+                if(!params.isEmpty() && body!=null){
+                    String newUrl = "";
+                    for(Entry<String,Object> param: params.entrySet()){
+                        newUrl += "&"+param.getKey()+"="+param.getValue().toString();
+                    };
+                    newUrl = newUrl.substring(1);
+                    url = url+"?"+newUrl;
+                    return rxServiceByJson.post(url,body);
+                }else if(params.isEmpty()){
                     return rxServiceByJson.post(url,body);
                 }
                 else {

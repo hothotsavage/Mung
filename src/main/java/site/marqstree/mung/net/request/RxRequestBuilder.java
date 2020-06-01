@@ -58,47 +58,50 @@ public class RxRequestBuilder<T> {
         return this;
     }
 
-    public RxRequestBuilder builder(){
-
-        return this;
-    }
-
     public RxRequestBuilder get(){
         rxRequest.setJsonObservable(rxRequest.request(HttpMethod.GET));
         return this;
     }
 
-    public Observable<String> post(){
-        return rxRequest.request(HttpMethod.POST);
+    public RxRequestBuilder post(){
+        rxRequest.setJsonObservable(rxRequest.request(HttpMethod.POST));
+        return this;
     }
 
-    public Observable<String> put(){
-        return rxRequest.request(HttpMethod.POST);
+    public RxRequestBuilder put(){
+        rxRequest.setJsonObservable(rxRequest.request(HttpMethod.PUT));
+        return this;
     }
 
-    public Observable<String> delete(){
-        return rxRequest.request(HttpMethod.DELETE);
+    public RxRequestBuilder delete(){
+        rxRequest.setJsonObservable(rxRequest.request(HttpMethod.DELETE));
+        return this;
     }
 
-    public Observable<String> upload(){
-        return rxRequest.request(HttpMethod.UPLOAD);
+    public RxRequestBuilder upload(){
+        rxRequest.setJsonObservable(rxRequest.request(HttpMethod.UPLOAD));
+        return this;
     }
 
+    //使用当前线程同步将code转换成boolean
     public Observable<Boolean> json2Boolean(){
         return rxRequest.getJsonObservable()
                 .flatMap(new RxFuncJson2Boolean());
     }
 
+    //使用当前线程同步将data数据转换成beanClass
     public Observable<T> json2Bean(Class<T> beanClass){
         return rxRequest.getJsonObservable()
                 .flatMap(new RxFuncJson2Bean<T>(beanClass));
     }
 
+    //使用当前线程同步将data数据转换成List
     public Observable<List<T>> json2List(Class<T> beanClass){
         return rxRequest.getJsonObservable()
                 .flatMap(new RxFuncJson2List<T>(beanClass));
     }
 
+    //使用当前线程同步转换成beanClass
     public Observable<T> json2RawBean(Class<T> beanClass){
         return rxRequest.getJsonObservable()
                 .flatMap(new RxFuncJson2RawBean<T>(beanClass));
