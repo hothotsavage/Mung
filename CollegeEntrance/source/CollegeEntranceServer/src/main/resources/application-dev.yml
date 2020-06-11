@@ -5,7 +5,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: p@ssw0rd
-    url: jdbc:mysql://localhost/waterlogging?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://localhost/collegeentrance?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
   jpa:
     properties:
       hibernate:
@@ -34,7 +34,15 @@ logging:
       mybatis: debug
 config:
   uploadPath: /upload   #上传文件路径
-  downloadUrlPrefix: http://192.168.137.1:5050/api/file/download/  #下载相对路径
+  downloadUrlPrefix: http://localhost:5050/api/file/download/  #下载相对路径
 
+# 自定义上传文件存储目录和下载url
+upload:
+  filePath: file:/d:/temp/upload
+  downloadUrlPrefix: http://localhost:5050/api/file/download/  #下载相对路径
+
+# 自定义文件下载url
+download:
+  url: /download
 
 
