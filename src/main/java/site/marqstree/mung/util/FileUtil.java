@@ -16,7 +16,7 @@ public class FileUtil {
 
     //获取单例
     private FileUtil getInstance(){
-        return FileUtil.Holder.INSTANCE;
+        return Holder.INSTANCE;
     }
 
     // 上传文件相对路径jar包
